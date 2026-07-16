@@ -1,0 +1,10 @@
+name: tn_app
+title:
+username: rvkmar
+account: rvkmar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17617402
+bundleId: 12277615
+url: https://rvkmar.shinyapps.io/tn_app/
+version: 1
