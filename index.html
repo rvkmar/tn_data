@@ -203,13 +203,13 @@
         });
 
         // Detect when the user clicks inside a background iframe
-        window.addEventListener('blur', function () {
-            const activeIframe = document.querySelector('.present iframe');
-            if (activeIframe && document.activeElement === activeIframe) {
-                window.open(activeIframe.src, '_blank');
-                window.focus(); // Prevent endless loops
-            }
-        });
+        // window.addEventListener('blur', function () {
+        //     const activeIframe = document.querySelector('.present iframe');
+        //     if (activeIframe && document.activeElement === activeIframe) {
+        //         window.open(activeIframe.src, '_blank');
+        //         window.focus(); // Prevent endless loops
+        //     }
+        // });
 
     </script>
 </body>
