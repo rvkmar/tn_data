@@ -137,11 +137,15 @@
                             district spending vs. outcomes</small></em></p>
 
                 <!-- This iframe looks for your locally running R Shiny app on port 3575 -->
-                <div class="iframe-container">
-                    <iframe src="https://rvkmar.shinyapps.io/tn_app/" width="100%" height="100%"
-                        frameborder="0"></iframe>
-                    <!-- <iframe src="http://127.0.0.1:3575/" width="100%" height="100%" frameborder="0"></iframe> -->
+                <!-- <div class="iframe-container" id="iframe-container">
+                    <iframe src="http://127.0.0.1:6302/" width="100%" height="100%" frameborder="0"></iframe>
+                </div> -->
+                <div class="iframe-container" id="iframe-container"
+                    style="background: url('spinner.gif') center center no-repeat;">
+                    <iframe src="https://rvkmar.shinyapps.io/tn_app/" width="100%" height="100%" frameborder="0"
+                        onload="this.parentNode.style.background='none';"></iframe>
                 </div>
+
             </section>
 
             <!-- Slide 6: Discussion & Relationship -->
@@ -207,7 +211,7 @@
         //     const activeIframe = document.querySelector('.present iframe');
         //     if (activeIframe && document.activeElement === activeIframe) {
         //         window.open(activeIframe.src, '_blank');
-        //         window.focus(); // Prevent endless loops
+        //         window.focus();
         //     }
         // });
 
