@@ -121,7 +121,7 @@ ui <- page_sidebar(
   theme = bs_theme(version = 5, preset = "litera"),
   
   sidebar = sidebar(
-    title = "Estimate(s)",
+    title = "Parameter(s)",
     
     checkboxGroupInput(
       "year", 
