@@ -203,26 +203,31 @@ ui <- page_sidebar(
 
 server <- function(input, output, session) {
 
-  # Create a custom loader setup targeting the plot components
-  w <- Waiter$new(
-    id = c("scatterPlot", "trendPlot"),
-    html = tagList(
-      spin_fading_circles(), 
-      tags$h5("Updating graphs...", style = "color: #2c3e50; margin-top: 10px;")
-    ),
-    color = "rgba(255, 255, 255, 0.85)" # Tinted background overlay
-  )
+  # # Create a custom loader setup targeting the plot components
+  # w <- Waiter$new(
+  #   id = c("scatterPlot", "trendPlot"),
+  #   html = tagList(
+  #     spin_fading_circles(), 
+  #     tags$h5("Updating graphs...", style = "color: #2c3e50; margin-top: 10px;")
+  #   ),
+  #   color = "rgba(255, 255, 255, 0.85)" # Tinted background overlay
+  # )
   
-  # Show the wait screen whenever any parameter modifications occur
-  observe({
-    input$year
-    input$grade
-    input$subject
-    input$districts
-    input$display_options
-    w$show()
-  })
-
+  # # Show the wait screen whenever any parameter modifications occur
+  # observe({
+  #   input$year
+  #   input$grade
+  #   input$subject
+  #   input$districts
+  #   input$display_options
+  #   w$show()
+  # })
+  
+  # Create a reusable custom loader layout structure
+  my_loader <- tagList(
+    spin_fading_circles(), 
+    tags$h5("Updating graphs...", style = "color: #2c3e50; margin-top: 10px;")
+  )
 
   # Dynamic Subject Mapping
   
@@ -293,6 +298,11 @@ server <- function(input, output, session) {
   # Scatter Plot rendering
   
   output$scatterPlot <- renderPlotly({
+
+    # Trigger loader immediately when evaluation starts
+    waiter_show(id = "scatterPlot", html = my_loader, color = "rgba(255, 255, 255, 0.85)")
+    on.exit(waiter_hide(id = "scatterPlot")) # Ensure overlay hides even if error occurs
+    
     data <- filtered_data()
     if(nrow(data) == 0) return(NULL)
     
@@ -319,6 +329,11 @@ server <- function(input, output, session) {
   # Trend Line Plot rendering
   
   output$trendPlot <- renderPlotly({
+
+    # Trigger loader immediately when evaluation starts
+    waiter_show(id = "trendPlot", html = my_loader, color = "rgba(255, 255, 255, 0.85)")
+    on.exit(waiter_hide(id = "trendPlot")) # Ensure overlay hides even if error occurs
+    
     req(input$districts, input$grade, input$subject)
     
     # Needs all years for the trend line, regardless of year filter
@@ -344,9 +359,8 @@ server <- function(input, output, session) {
       theme_minimal() +
       ylim(0, 100) 
     
-
     # Hide waiter overlay once rendering concludes
-    w$hide()
+    # w$hide()
 
     ggplotly(p)
     
