@@ -5,6 +5,9 @@ account: rvkmar
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17617402
-bundleId: 12277615
+bundleId: 12318271
 url: https://rvkmar.shinyapps.io/tn_app/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: index.html|spinner.gif

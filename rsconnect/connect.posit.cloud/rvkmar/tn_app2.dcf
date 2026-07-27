@@ -1,0 +1,13 @@
+name: tn_app2
+title: TN_app
+username: rvkmar
+account: rvkmar
+server: connect.posit.cloud
+hostUrl: https://api.connect.posit.cloud/v1
+appId: 019f982b-daf8-4532-266c-15b633fd9452
+bundleId:
+url: https://connect.posit.cloud/rvkmar/content/019f982b-daf8-4532-266c-15b633fd9452
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: index.html|spinner.gif

@@ -6,6 +6,7 @@ library(ggplot2)
 library(plotly)
 library(DT)
 library(dplyr)
+library(waiter)
 
 # 1. DATA GENERATION BASED ON ACTUAL REPORTS
 
@@ -120,6 +121,9 @@ ui <- page_sidebar(
   title = "Tamil Nadu: Expenditure vs Learning Outcomes",
   theme = bs_theme(version = 5, preset = "litera"),
   
+  # Initialize waiter elements in the UI
+  useWaiter(),
+
   sidebar = sidebar(
     title = "Parameter(s)",
     
@@ -198,7 +202,28 @@ ui <- page_sidebar(
 # 4. SERVER LOGIC
 
 server <- function(input, output, session) {
+
+  # Create a custom loader setup targeting the plot components
+  w <- Waiter$new(
+    id = c("scatterPlot", "trendPlot"),
+    html = tagList(
+      spin_fading_circles(), 
+      tags$h5("Updating graphs...", style = "color: #2c3e50; margin-top: 10px;")
+    ),
+    color = "rgba(255, 255, 255, 0.85)" # Tinted background overlay
+  )
   
+  # Show the wait screen whenever any parameter modifications occur
+  observe({
+    input$year
+    input$grade
+    input$subject
+    input$districts
+    input$display_options
+    w$show()
+  })
+
+
   # Dynamic Subject Mapping
   
   grade_subject_map <- list(
@@ -319,6 +344,10 @@ server <- function(input, output, session) {
       theme_minimal() +
       ylim(0, 100) 
     
+
+    # Hide waiter overlay once rendering concludes
+    w$hide()
+
     ggplotly(p)
     
     
